@@ -13,7 +13,12 @@ const store = (function () {
   searchTerm: '',
   };
 
-    
+  const findById = function(id) {
+    store.items.find(item => item.id);
+  }
+
+  const addItem
+
 }() );
 
 
