@@ -12,7 +12,7 @@ const store = (function () {
   const searchTerm = '';
 
   const findById = function(id) {
-    return store.items.find(item => item.id);
+    return store.items.find(item => item.id===id);
   };
 
   const addItem = function(name) {
@@ -26,9 +26,9 @@ const store = (function () {
   };
 
   const findAndToggleChecked = function(id) {
-      items.findById(id).checked = !items.findById(id).checked;
-      return items;
-  }
+    findById(id).checked = !findById(id).checked;
+    return items;
+  };
 
   const findAndUpdateName = function(id, newName) {
     try {
@@ -39,22 +39,36 @@ const store = (function () {
     } catch (error) {
       console.log(`Cannot update name: ${error.message}`);
     }
-  }
+  };
 
   const findAndDelete = function(id) {
-    this.items = items.filter(item => item.id !== id);
+    //this.items = items.filter(item => item.id === id);
+    const indexValue = items.findIndex(item => item.id === id);
+    items.splice(indexValue, 1);
     return this.items;
-  }
+  };
+
+  const toggledCheckFilter = function(){
+    this.hideCheckedItems = !this.hideCheckedItems;
+    
+  };
+
+
+  const setSearchTerm = function (search){
+    this.searchTerm = search;
+  };
 
   return {
-  items,
-  hideCheckedItems,
-  searchTerm,
-  findById,
-  addItem,
-  findAndToggleChecked,
-  findAndUpdateName,
-  findAndDelete,
+    items,
+    hideCheckedItems,
+    searchTerm,
+    findById,
+    addItem,
+    findAndToggleChecked,
+    findAndUpdateName,
+    findAndDelete,
+    setSearchTerm,
+    toggledCheckFilter,
   };
 
 }() );
